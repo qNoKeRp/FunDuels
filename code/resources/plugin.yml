@@ -1,0 +1,7 @@
+name: FunDuels
+version: '1.0'
+main: me.qnokerp.funduels.Main
+api-version: 1.16
+authors: [ qNoKeRp ]
+commands:
+  duel: {}
