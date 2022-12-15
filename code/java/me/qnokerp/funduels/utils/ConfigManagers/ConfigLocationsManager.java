@@ -1,4 +1,4 @@
-package me.qnokerp.funduels.utils;
+package me.qnokerp.funduels.utils.ConfigManagers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -7,11 +7,11 @@ import me.qnokerp.funduels.Main;
 import java.io.File;
 import java.io.IOException;
 
-public class ConfigManager{
+public class ConfigLocationsManager {
     private File file;
     private static FileConfiguration config;
 
-    public ConfigManager(String name) {
+    public ConfigLocationsManager(String name) {
         file = new File(Main.getInstance().getDataFolder(), name);
         try {
             if(!file.exists() && !file.createNewFile()) throw new IOException();

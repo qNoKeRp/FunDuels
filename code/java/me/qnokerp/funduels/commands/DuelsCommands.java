@@ -3,16 +3,19 @@ package me.qnokerp.funduels.commands;
 import me.qnokerp.funduels.Main;
 import me.qnokerp.funduels.events.Events;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+import static me.qnokerp.funduels.utils.FunDuelsUtils.getSendComponent;
 import static me.qnokerp.funduels.utils.FunDuelsUtils.isDueling;
 
 public class DuelsCommands implements CommandExecutor, TabCompleter {
@@ -22,9 +25,31 @@ public class DuelsCommands implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Player player = (Player) commandSender;
 
+
         if(args.length == 1) {
-            if(args[0].equalsIgnoreCase("info")) {
-                player.sendMessage(String.valueOf(Main.getConfigData().getConfig().get("DelayTP")));
+            if(args[0].equalsIgnoreCase("test")) {
+//                FunDuelsUtils.bossBarTpScheduler(player, delayStartTP, true);
+//                Main.bossBars.put(player, Bukkit.getServer().createBossBar(String.format("До телепортации: %s секунд", (int) delayStartTP), BarColor.GREEN, BarStyle.SOLID));
+//                Main.bossBars.get(player).setProgress(0);
+//                Main.bossBars.get(player).addPlayer(player);
+//
+//                Main.tasks.put(player, Bukkit.getScheduler().runTaskTimer(Main.getInstance(), new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        num = num + 1;
+//                        if(!(num == delayStartTP)) {
+//                            Main.bossBars.get(player).setProgress(num / delayStartTP);
+//                            Main.bossBars.get(player).setTitle(String.format("До телепортации: %s секунд", (int) delayStartTP - num));
+//
+//                        } else {
+//                            Bukkit.getScheduler().cancelTask(Main.tasks.get(player).getTaskId());
+//                            Main.bossBars.get(player).removePlayer(player);
+//                            Main.bossBars.remove(player);
+//                        }
+//                    }
+//                }, 20L, 20L));
+
+                return true;
             }
         }
 
@@ -37,22 +62,25 @@ public class DuelsCommands implements CommandExecutor, TabCompleter {
                         Player recipient = Bukkit.getPlayer(args[1]);
                         queries.put(player, recipient);
 
-                        player.sendMessage(String.format("Вы успешно отправили запрос на дуэль игроку %s", args[1]));
-                        recipient.sendMessage(String.format("Вы получили запрос на дуэль от игрока %s, \n/duel accept <ник> - принять\n/duel deny <ник> - отклонить", player.getName()));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&6[⚔] &fВы успешно отправили запрос на дуэль игроку &6%s", args[1])));
+
+                        assert recipient != null;
+                        recipient.sendMessage(ChatColor.translateAlternateColorCodes('&',String.format("&6[⚔] &fВы получили запрос на дуэль от игрока &6%s", player.getName())));
+                        recipient.sendMessage(getSendComponent(player));
 
                         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
                             if(isDueling(player)) {
                                 queries.remove(player);
-                                player.sendMessage("Время запроса вышло");
+                                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6[⚔] &fВремя запроса вышло"));
                             }
                         }, 60 * 20);
 
                         return true;
                     }
-                    player.sendMessage("Вы уже отправили запрос на дуэль!");
-
-                    return true;
                 }
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6[⚔] &fВы уже отправили запрос на дуэль"));
+
+            return true;
 
             }
 
@@ -62,8 +90,23 @@ public class DuelsCommands implements CommandExecutor, TabCompleter {
                         if(queries.get(sender).equals(player)) {
 
                             queries.remove(sender);
-                            player.sendMessage("Вы успешно приняли запрос на дуэль!");
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6[⚔] &fВы успешно приняли запрос на дуэль"));
                             Events.teleportEvent(sender, player);
+
+                            return true;
+                        }
+                    }
+                }
+            }
+            if(args[0].equalsIgnoreCase("deny")) {
+                if(queries.containsValue(player)) {
+                    for(Player sender: queries.keySet()) {
+                        if (queries.get(sender).equals(player)) {
+
+                            queries.remove(sender);
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6[⚔] &fВы успешно отклонили запрос на дуель"));
+
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6[⚔] &fВаш запрос был отклонен"));
 
                             return true;
                         }
