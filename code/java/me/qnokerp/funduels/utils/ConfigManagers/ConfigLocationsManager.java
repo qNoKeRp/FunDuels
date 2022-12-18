@@ -1,4 +1,4 @@
-package me.qnokerp.funduels.utils.ConfigManagers;
+package me.qnokerp.funduels.utils.configmanagers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -35,6 +35,10 @@ public class ConfigLocationsManager {
         }
     }
 
+    public void reload() {
+        config = YamlConfiguration.loadConfiguration(file);
+    }
+
     public static void saveDefaultLocations() {
 
         if(Main.getLocationsData().getConfig().getKeys(false).isEmpty()) {
@@ -44,7 +48,6 @@ public class ConfigLocationsManager {
 
             Main.getLocationsData().save();
         }
-
     }
 
 }

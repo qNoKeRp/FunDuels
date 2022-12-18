@@ -1,10 +1,97 @@
-#ffa - by qNoKeRp
+#by qNoKeRp
+
+#Права на использование /duel addloc и /duel reload
+permission: "fd.addloc"
 
 #Задержка до телепортации на прежнее место победителя
-DelayFinishTP: 60
-
-#Время отведенное на пвп (по окончанию - ничья, всех тепает назад)
-FightTime: 1800
+delay_finish_tp: 60
 
 #Задержка до телепортации на арену
-DelayStartTP: 7
+delay_start_tp: 6
+
+#Время отведенное на пвп (по окончанию - ничья, всех тепает назад)
+fight_time: 1800
+
+#Время действия запроса на дуэль
+duel_query_time: 60
+
+sounds:
+  #Пришел запрос
+  getQuerySound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 100
+    pitch: 1
+
+  #Запрос принят
+  acceptQuerySound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 10
+    pitch: 100
+
+  #Запрос отклонен
+  denyQuerySound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 10
+    pitch: 1
+
+  #Телепорт на арену
+  arenaTpSound:
+    sound: "ENTITY_ENDERMAN_TELEPORT"
+    volume: 10
+    pitch: 100
+
+  #Победа игрока
+  winSound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 10
+    pitch: 100
+
+  #Проигрыш игрока
+  loseSound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 10
+    pitch: 100
+
+  #Ничья
+  drawSound:
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 10
+    pitch: 100
+
+  #Телепорт с арены
+  fromArenaTpSound:
+    sound: "ENTITY_ENDERMAN_TELEPORT"
+    volume: 10
+    pitch: 100
+
+effects:
+  arenaTpEffect:
+    #Выключить - false
+    effect: "BLINDNESS"
+    duration: 3
+    amplifier: 1
+    particles: false
+
+  winEffect:
+    effect: "BLINDNESS"
+    duration: 3
+    amplifier: 1
+    particles: false
+
+  loseEffect:
+    effect: "BLINDNESS"
+    duration: 3
+    amplifier: 1
+    particles: false
+
+  drawEffect:
+    effect: "BLINDNESS"
+    duration: 3
+    amplifier: 1
+    particles: false
+
+  fromArenaTpEffect:
+    effect: "BLINDNESS"
+    duration: 3
+    amplifier: 1
+    particles: false

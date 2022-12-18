@@ -1,6 +1,7 @@
-package me.qnokerp.funduels.utils.ConfigManagers;
+package me.qnokerp.funduels.utils.configmanagers;
 
 import me.qnokerp.funduels.Main;
+import me.qnokerp.funduels.utils.configmanagers.submanagers.ConfigInits;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -8,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConfigDefaultManager {
+
+
     private File file;
     private FileConfiguration config;
 
@@ -34,5 +37,14 @@ public class ConfigDefaultManager {
             throw new RuntimeException("Не удалось сохранить конфиг");
         }
     }
+
+    public void reload() {
+        config = YamlConfiguration.loadConfiguration(file);
+        ConfigInits.configSoundInit();
+        ConfigInits.configElementsInit();
+    }
+
+
+
 
 }

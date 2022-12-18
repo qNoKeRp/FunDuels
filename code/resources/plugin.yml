@@ -1,5 +1,5 @@
 name: FunDuels
-version: '1.0'
+version: '1.2-alpha'
 main: me.qnokerp.funduels.Main
 api-version: 1.16
 authors: [ qNoKeRp ]
